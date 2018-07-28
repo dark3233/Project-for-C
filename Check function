@@ -23,7 +23,6 @@ int main(void)
 	    scanf("%s",no2);
 	    printf("-----------\n");
 	    
-		check(chau,no1,no2);
 		if (check(chau,no1,no2)==false) {
 			printf("Password is wrong!\n");
 			printf("-----------\n");
