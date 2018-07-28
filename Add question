@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main(void)
+{
+	FILE *chau;
+	int count;
+	char garbage[150],num[150];
+	char quest[150];
+	char sol1[150],sol2[150],sol3[150],sol4[150];
+	int n;
+	
+	A:
+	printf("You want to add new questions, please press 1!\n");
+	printf("--------------------\n");
+	scanf("%d",&n);
+	printf("--------------------\n");
+	if (n==1) {
+		count=0;;
+		chau=fopen("question.txt","a+");
+	    while (fscanf(chau,"%s",garbage)!=EOF) {
+	     	if (strcmp(garbage,"***")) {
+		    	count=count+1;
+		     }
+	    }
+	
+	    count=count+1;
+	    printf("QuestionID %d :\n",count);
+	    fprintf(chau,"\nQuestionID %d :",count);
+	
+	    printf("\nDesc:   ");
+	    fflush(stdin);
+	    gets(quest);
+	    fprintf(chau,"\nDesc:   %s",quest);
+	
+	    printf("\nSolution 1: ");
+	    fflush(stdin);
+	    gets(sol1);
+	    fprintf(chau,"\nSolution 1: %s",sol1);
+	
+	    printf("\nSolution 2: ");
+	    fflush(stdin);
+	    gets(sol2);
+	    fprintf(chau,"\nSolution 2: %s",sol2);
+	
+	    printf("\nSolution 3: ");
+	    fflush(stdin);
+	    gets(sol3);
+	    fprintf(chau,"\nSolution 3: %s",sol3);
+	
+	    printf("\nSolution 4: ");
+	    fflush(stdin);
+	    gets(sol4);
+	    fprintf(chau,"\nSolution 4: %s",sol4);
+	
+	    printf("\n***");
+	    fprintf(chau,"\n***");
+	
+	    printf("\nAdd new question successful!");
+	
+	    fclose(chau);
+	    goto A;
+	}
+	if (n==0) printf("\nExit!");
+	return 0;
+}
