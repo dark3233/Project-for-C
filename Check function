@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <string.h>
+bool check(FILE *fptr,char user[150],char pass[150]);
+void create(FILE *fptr,char user[150],char pass[150]);
+int main(void)
+{
+	FILE *chau;
+	char no1[150],no2[150];
+	int n;
+	
+	A:
+	printf("You have an account, please press 0!\n");
+	printf("You do not have an account, please press 1!\n");
+	printf("-----------\n");
+	scanf("%d",&n);
+	printf("-----------\n");
+	
+	if (n==0) {
+		B:
+	    printf("Username: ");
+	    scanf("%s",no1);
+        printf("Password: ");
+	    scanf("%s",no2);
+	    printf("-----------\n");
+	    
+		check(chau,no1,no2);
+		if (check(chau,no1,no2)==false) {
+			printf("Password is wrong!\n");
+			printf("-----------\n");
+			goto B;
+		}
+	}
+	
+	if (n==1) {
+		create(chau,no1,no2);
+		chau=fopen("Account.txt","a+");
+		goto A;
+		fclose(chau);
+	}
+	return 0;
+}
+//--------------------//
+bool check(FILE *fptr,char user[150],char pass[150])
+{
+	char a[150], b[150];
+	char garbage[150];
+	char role[150];
+	
+	fptr=fopen("Account.txt","a+");
+	while (fscanf(fptr,"%s",a)!=EOF) {
+		if (strcmp(a,user)==0) {
+			fscanf(fptr,"%s %s",garbage,b);
+			if (strcmp(b,pass)==0) {
+				printf("Log in successful!\n");
+				printf("-----------\n");
+				fscanf(fptr,"%s %s",garbage,role);
+				if (strcmp(role,"Student")==0) {
+					printf("You are student!\n");
+					printf("You have some choices!\n");
+					printf("-----------\n");
+				}
+				if (strcmp(role,"Lecturer")==0) {
+					printf("You are lecturer!\n");
+					printf("You have some choices!\n");
+					printf("-----------\n");
+				}
+				return true;
+			}
+			else return false;
+		}
+	}
+	fclose(fptr);
+}
+//--------------------//
+void create(FILE *fptr,char user[150],char pass[150])
+{
+	char id[150], name[150];
+	char role[150];
+	fptr=fopen("Account.txt","a+");
+	
+	printf("AccountID: ");
+	scanf("%s",id);
+	fprintf(fptr,"\n\n%s %s\n","AccountID:",id);
+	
+	printf("Fullname: ");
+	fflush(stdin);
+	gets(name);
+	fprintf(fptr,"%s %s\n","Fullname:",name);
+	
+	printf("Username: ");
+	scanf("%s",user);
+	fprintf(fptr,"%s %s\n","Username:",user);
+	
+	printf("Password: ");
+	scanf("%s",pass);
+	fprintf(fptr,"%s %s\n","Password:",pass);
+	
+	printf("Role: ");
+	scanf("%s",role);
+	fprintf(fptr,"%s %s\n","Role:",role);
+	
+	printf("Create new account successful!\n");
+	printf("-----------\n");
+	
+	fclose(fptr);
+}
